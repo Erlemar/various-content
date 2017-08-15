@@ -12,11 +12,11 @@
 
 - собрать собственный датасет;
 
-- натренировать модели машинного обучения;
+- натренировать модели машинного обучения (FNN и CNN);
 
-- сделать возможность дообучения моделей;
+- сделать возможность дообучения этих моделей;
 
-- объединить это в работающий сайт;
+- объединить всё это в работающий сайт;
 
 Для полного понимания проекта необходимо знать как работает deep learning для распознавания изображений, иметь базовые знания о Flask и немного разбираться в HTML, JS и CSS.
 
@@ -48,7 +48,7 @@
 ## Сбор данных
 На сбор данных у меня ушла чуть ли не половина всего времени, потраченного на проект. Дело в том, что я слабо был знаком, с тем, что надо было сделать, поэтому приходилось двигаться методом проб и ошибок.
 
-### Создание первой версии сайта
+### Создание первой версии сайта (для сбора данных)
 Первый вариант сайта выглядел вот так: 
 
 ![](https://raw.githubusercontent.com/Erlemar/various-content/master/1.jpg?raw=true)
@@ -64,7 +64,67 @@
 Итак, теперь подробнее обо всём этом. Специально для статьи я сделал минимально рабочую версию сайта, на примере которой и буду рассказывать, как сделать вышеперечисленное: https://digits-little.herokuapp.com/
 
 ## Flask
-Flask - питоновский фреймворк для создания сайтов. На официальном сайте есть отличное [введение](http://flask.pocoo.org/docs/0.12/quickstart/#quickstart). Есть разные способы использования Flask для получения и передачи информации, в этом проекте я использовал AJAX. AJAX даёт возможность "фонового" обмена данными между браузером и веб-сервером, это позволяет не перезагружать страницы каждый раз при передаче данных.
+Flask - питоновский фреймворк для создания сайтов. На официальном сайте есть отличное [введение](http://flask.pocoo.org/docs/0.12/quickstart/#quickstart). Есть разные способы использования Flask для получения и передачи информации, так в этом проекте я использовал AJAX. AJAX даёт возможность "фонового" обмена данными между браузером и веб-сервером, это позволяет не перезагружать страницы каждый раз при передаче данных.
+
+## Структура проекта
+
+![](https://raw.githubusercontent.com/Erlemar/various-content/master/9.jpg?raw=true)
+
+Все файлы, используемые в проекте можно разделить на 2 неравные группы: меньшая часть необходима для того, чтобы приложение могло работать на Heroku, а все остальные задействованы непосредственно в работе сайта.
+
+## HTML
+HTML-файлы должны храниться в папке "template", на данной стадии было достаточно иметь один.
+
+```html
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Handwritten digit recognition</title>
+	<link rel="stylesheet" type="text/css" href="static/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+
+	<body>
+
+		<div  class="container">
+			<div>
+				Здесь можно порисовать.<br>
+				<canvas id="the_stage" width="200" height="200">fsf</canvas>
+				<div>
+					<button type="button" class="btn btn-default butt" onclick="clearCanvas()"><strong>clear</strong></button>
+					<button type="button" class="btn btn-default butt" id="save" onclick="saveImg()"><strong>save</strong></button>
+				</div>
+
+				<div>
+					Please select one of the following<br>
+					<input type="radio" name="action" value="0" id="digit">0<br>
+					<input type="radio" name="action" value="1" id="digit">1<br>
+					<input type="radio" name="action" value="2" id="digit">2<br>
+					<input type="radio" name="action" value="3" id="digit">3<br>
+					<input type="radio" name="action" value="4" id="digit">4<br>
+					<input type="radio" name="action" value="5" id="digit">5<br>
+					<input type="radio" name="action" value="6" id="digit">6<br>
+					<input type="radio" name="action" value="7" id="digit">7<br>
+					<input type="radio" name="action" value="8" id="digit">8<br>
+					<input type="radio" name="action" value="9" id="digit">9<br>
+				</div>
+			</div>
+
+			<div class="col-md-6 column">
+				<h3>result:</h3>
+				<h2 id="rec_result"></h2>
+			</div>
+		</div>
+		<script src="static/jquery.min.js"></script>
+		<script src="static/bootstrap.min.js"></script>
+		<script src="static/draw.js"></script>
+	</body>
+</html>
+```
+
+
+
 
 ### Интеграция с Amazon s3
 
