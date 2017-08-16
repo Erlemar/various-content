@@ -278,6 +278,8 @@ data - это данные, которые передаются в запрос�
 Теперь перейдём уже к тому, как данные из AJAX запроса попадают в python, и как изображение сохраняется.
 Основной скрипт - **main.py**.
 
+Гайдов и статей по работе с Flask полно, поэтому я просто кратко опишу базовые вещи, уделю особое внимание строчкам, без которых код не рабтает, и, конечно, расскажу про остальной код, являющийся основой моего сайта.
+
 ```python
 __author__ = 'Artgor'
 from functions import Model
@@ -291,16 +293,15 @@ model = Model()
 CORS(app, headers=['Content-Type'])
 
 @app.route("/", methods=["POST", "GET", 'OPTIONS'])
-def index_page(text="", prediction_message=""):
+def index_page():
 
-	return render_template('index.html', text=text, prediction_message=prediction_message)
+	return render_template('index.html')
 
 @app.route('/hook', methods = ["GET", "POST", 'OPTIONS'])
 def get_image():
 	if request.method == 'POST':
 		image_b64 = request.values['imageBase64']
 		drawn_digit = request.values['digit']
-		print('Data received')
 		image_encoded = image_b64.split(',')[1]
 		image = base64.decodebytes(image_encoded.encode('utf-8'))		
 		save = model.save_image(drawn_digit, image)	
@@ -312,6 +313,7 @@ if __name__ == '__main__':
 	port = int(os.environ.get("PORT", 5000))
 	app.run(host='0.0.0.0', port=port, debug=False)
 ```
+
 
 
 
