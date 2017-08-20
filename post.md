@@ -1,6 +1,6 @@
 # Как сделать сайт для распознавания рукописного ввода цифр с 0. Гайд для не совсем начинающих
 
-![](https://digits-draw-recognize.herokuapp.com/static/15.jpg)
+![](https://raw.githubusercontent.com/Erlemar/various-content/master/15.jpg?raw=true)
 
 https://digits-draw-recognize.herokuapp.com/
 
